@@ -625,6 +625,42 @@ figcaption {
 .panel-group .panel-heading + .panel-collapse .panel-body {
     border-top: 0;
 }
+/* ============================================================
+   ACCORDION / PANELS (Research section)
+   Bootstrap panel group styled to look borderless and minimal.
+   Glyphicon arrows indicate open/collapsed state.
+   ============================================================ */
+
+/* Glyphicon arrow for open panel */
+.panel-heading .accordion-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey;
+}
+
+/* Glyphicon arrow for collapsed panel */
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\e080";
+}
+
+/* Accordion toggle links: smooth color transition */
+.accordion-toggle {
+    transition: color 0.2s ease-in-out;
+}
+
+/* Remove panel border and heading background */
+.panel {
+    border: none;
+}
+.panel-default > .panel-heading {
+    background-color: transparent;
+}
+
+/* Remove top border between heading and body */
+.panel-group .panel-heading + .panel-collapse .panel-body {
+    border-top: 0;
+}
 
 /* Remove margin between stacked panels */
 .panel-group .panel + .panel {
@@ -635,6 +671,18 @@ figcaption {
 .panel-title {
     font-size: 16pt;
     font-family: "Helvetica Neue";
+}
+
+/* Remove the gap between the <hr> and the first accordion panel.
+   Bootstrap adds a default margin-bottom to <hr> and margin-top
+   to .panel-group that together create dead white space. */
+#res hr {
+    margin-bottom: 0;
+}
+
+#accordion {
+    margin-top: 0;
+    padding-top: 0;
 }
 
 /* ============================================================
