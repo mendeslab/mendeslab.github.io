@@ -1,0 +1,647 @@
+/* ============================================================
+   CUSTOM FONTS
+   All fonts loaded via @font-face from local /fonts/ directory.
+   These are referenced by name throughout the stylesheet.
+   ============================================================ */
+
+@font-face {
+    font-family: 'Roboto Light';
+    src: url('../fonts/font-roboto-light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto Regular';
+    src: url('../fonts/font-roboto-regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Actor';
+    src: url('../fonts/font-actor.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../fonts/font-helvetica-neue.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica Neue Lt';
+    src: url('../fonts/font-helvetica-neue-Lt.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica Neue Thin';
+    src: url('../fonts/font-helvetica-neue-thin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Ostrich Sans Inline Regular';
+    src: url('../fonts/font-ostrich-sans-inline-regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Ostrich Sans Black';
+    src: url('../fonts/font-ostrich-sans-black.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Kreon Regular';
+    src: url('../fonts/font-kreon-regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Academicons';
+    src: url('../fonts/font-academicons.ttf') format('truetype');
+}
+
+
+/* ============================================================
+   NAVBAR
+   Purple fixed-top navbar with Space Grotesk nav links and
+   a Kreon brand name. Hover turns links pink.
+   ============================================================ */
+
+/* Home icon: yellow on purple background, turns white on hover */
+.home {
+    color: rgb(253, 208, 35);
+    background-color: rgb(70, 29, 124);
+}
+.home:hover {
+    color: white;
+}
+
+/* Scrollable news box inside the navbar area (if used) */
+#news-scroll-box {
+    height: 100%;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Default Bootstrap navbar link color override → white */
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+
+/* Nav items with this ID get a purple background (used on scroll links) */
+#forcePurpleBackground {
+    background-color: rgb(70, 29, 124);
+}
+#forcePurpleBackground:focus {
+    background-color: rgb(42, 12, 81);
+}
+
+/* Main navbar background and border */
+#myNavbar {
+    background-color: rgb(70, 29, 124);
+    border-color: transparent;
+}
+
+/* Focused nav item highlight (blue background, black text) */
+.nav-item:focus {
+    background: #4FA9DC;
+    color: #000;
+}
+
+/* General navbar link hover → white */
+.navbar a:hover {
+    color: white;
+}
+
+/* Bootstrap override: nav link hover → pink */
+.navbar-default .navbar-nav > li > a:hover {
+    color: rgb(255, 0, 128);
+}
+
+/* Brand name styling: yellow, Kreon font */
+.navbar-default .navbar-brand {
+    color: rgb(253, 208, 35);
+    font-family: "Kreon Regular", "Helvetica Neue Lt";
+    font-size: 20pt;
+}
+
+/* Space Grotesk overrides for nav links inside #myNavbar.
+   These use !important to override Bootstrap's specificity. */
+#myNavbar .nav.navbar-nav > li > a {
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    font-size: 16px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    transition: all 0.3s ease !important;
+}
+#myNavbar .nav.navbar-nav > li > a:hover {
+    color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+/* Brand name: Space Grotesk, bold, spaced out */
+.navbar-brand {
+    font-family: 'Space Grotesk', sans-serif !important;
+    letter-spacing: 2px !important;
+    font-weight: 800 !important;
+}
+
+
+/* ============================================================
+   TOP / JUMBOTRON SECTION
+   Purple hero area at the top of the page.
+   ============================================================ */
+
+/* Outer purple wrapper: top padding clears the fixed navbar,
+   bottom padding gives breathing room before the wave spacer */
+.purpletop {
+    padding-top: 55px;
+    padding-bottom: 10px;
+    background-color: rgb(70, 29, 124);
+}
+
+/* Prevents the welcome column and all its children from
+   horizontally overflowing their flex container */
+.purpletop [class*="col-"] {
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+/* Campus image displayed as a CSS background div (not an <img> tag)
+   to prevent it from snapping to its natural 2520px intrinsic width
+   at the 768px Bootstrap breakpoint, which caused a blowout.
+   The mask-image fades all four edges into the purple background. */
+.welcome-img {
+    width: 100%;
+    height: 230px;                  /* single height value — min-height and height
+                                       were redundant; height alone is sufficient */
+    min-height: 230px;
+    border-radius: 4px;
+    background-image: url('../images/campus_rect.png');
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;                 /* prevents the image from collapsing
+                                       when the flex column is height-constrained */
+
+    /* Fade edges into transparency so the image blends
+       into the purple background on all four sides.
+       -webkit- prefix covers Safari/Chrome; unprefixed covers Firefox. */
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%, black 5%, black 95%, transparent 100%
+    ),
+    linear-gradient(
+        to right,
+        transparent 0%, black 2.5%, black 97.5%, transparent 100%
+    );
+    -webkit-mask-composite: destination-in;
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%, black 5%, black 95%, transparent 100%
+    ),
+    linear-gradient(
+        to right,
+        transparent 0%, black 2.5%, black 97.5%, transparent 100%
+    );
+    mask-composite: intersect;
+}
+
+/* Hard-clips any horizontal overflow from the top section,
+   its Bootstrap container, jumbotron, and row.
+   This is the outermost safety net against blowouts. */
+
+#top,
+#top .container,
+#top .jumbotron,
+#top .row {
+    overflow-x: hidden;
+}
+
+/* The news column needs to be visible rather than clipped
+   so its internal scrollbar and backdrop-filter render correctly */
+#top .col-sm-5 {
+    overflow: visible;
+}
+
+/* At 768px Bootstrap switches from flex columns to stacked blocks.
+   These overrides ensure the layout reflows gracefully rather than
+   blowing out to the image's natural width. */
+@media (max-width: 768px) {
+    #top .row {
+        height: auto !important;    /* releases the fixed row height so
+                                       stacked columns don't overflow */
+        flex-wrap: wrap !important; /* allows columns to stack vertically */
+    }
+
+    #top .col-xs-12 {
+        width: 100% !important;     /* forces full width on each stacked column */
+        overflow-x: hidden;
+    }
+
+    .welcome-img {
+        width: 100% !important;     /* fills the column at narrow widths */
+        height: auto !important;    /* releases fixed height so image scales */
+        max-width: 100% !important; /* hard cap against any blowout */
+    }
+}
+
+/* Jumbotron: slightly lighter purple shade, white text */
+.jumbotron {
+    background-color: #664192 !important;
+    color: #ffffff;
+}
+
+/* Jumbotron body text: soft lavender-tinted white */
+.jumbotron p {
+    color: #f5f0fa;
+    font-size: 14pt;
+}
+
+/* Jumbotron heading: large Ostrich Sans Black display font */
+.jumbotron h1 {
+    font-size: 36pt;
+    font-family: "Ostrich Sans Black";
+}
+
+/* News box scrollbar — targets the scrollable div in #top */
+.news-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.news-scroll::-webkit-scrollbar-track {
+    background: rgba(180, 120, 255, 0.7);
+    border-radius: 2px;
+}
+
+.news-scroll::-webkit-scrollbar-thumb {
+    background: rgba(180, 120, 255, 0.7);  /* brand yellow, semi-transparent */
+    border-radius: 2px;
+}
+
+.news-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(180, 120, 255, 0.7);    /* full yellow on hover */
+}
+
+.news-scroll { /* for Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(180, 120, 255, 0.7) rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================================
+   GENERAL SECTION LAYOUT
+   All <section> elements are flex containers. They flow as a
+   row with children stretching to fill the height.
+   Note: index.html overrides this inline for specific sections
+   (e.g. #top uses flex-direction: column).
+   ============================================================ */
+
+section {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 400px;
+}
+
+
+/* ============================================================
+   MEET THE TEAM — BIO BOX
+   The #team-bio-box loads external HTML (e.g. fabio.html) via
+   fetch(). The injected content uses .modal-flex-container with
+   two columns: .bio-column (wider) and .timeline-column (narrower).
+
+   Problem solved: Bootstrap's .container has fixed widths at
+   breakpoints, which caused the injected flex content to overflow
+   the section below 768px. We override .container specifically
+   inside #team to mirror Bootstrap's breakpoints while allowing
+   it to shrink freely below 750px.
+   ============================================================ */
+
+/* Override Bootstrap's fixed .container width inside #team only.
+   This allows the container to shrink below 768px without blowing out. */
+#team > .container {
+    width: 100%;
+    max-width: 750px;   /* Bootstrap's container width at 768px breakpoint */
+    overflow-x: hidden;
+}
+
+/* Restore Bootstrap's wider container sizes at larger viewports,
+   so #team matches the width of #res, #pub, etc. */
+@media (min-width: 992px) {
+    #team > .container {
+        max-width: 970px;
+    }
+}
+@media (min-width: 1200px) {
+    #team > .container {
+        max-width: 1170px;
+    }
+}
+
+/* The flex container injected from bio HTML files.
+   flex-wrap: wrap allows columns to stack on narrow viewports. */
+.modal-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-height: none;
+}
+
+/* Bio text column: takes up 2/3 of horizontal space.
+   Scrollable vertically; min-width: 0 allows flex shrinking. */
+.bio-column {
+    flex: 2;
+    box-sizing: border-box;
+    max-height: 290px;
+    min-width: 0;           /* Critical: prevents flex blowout below content width */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Timeline column: takes up 1/3 of horizontal space.
+   Same shrink/scroll behavior as bio column. */
+.timeline-column {
+    flex: 1.2;
+    box-sizing: border-box;
+    max-height: 290px;
+    min-width: 0;           /* Critical: prevents flex blowout below content width */
+    overflow-y: auto;
+    overflow-x: hidden;  /* ← add this */
+    padding-right: 10px;
+}
+
+/* On narrow screens, stack columns vertically and give each more height */
+@media (max-width: 850px) {
+    .bio-column,
+    .timeline-column {
+        flex: 1 1 100%;
+        max-width: 100%;
+        height: 380px;
+        overflow-y: auto;
+        min-width: 0;
+        overflow-x: hidden;
+    }
+}
+
+/* Ensure timeline text wraps and never forces horizontal overflow */
+.timeline-content h3,
+.timeline-content p {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Timeline list itself: full width, no horizontal blowout */
+.timeline {
+    min-width: 0;
+    width: 100%;
+}
+
+/* Legacy modal container rules (used if bio is shown in a Bootstrap modal
+   rather than the inline #team-bio-box). Kept for compatibility. */
+#myModalContainer .modal-content {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+#myModalContainer .modal-body {
+    flex: 1;
+    overflow-y: visible;
+    padding: 20px;
+}
+
+/* Bio and timeline column scrollbars */
+.bio-column::-webkit-scrollbar,
+.timeline-column::-webkit-scrollbar {
+    width: 4px;
+}
+
+.bio-column::-webkit-scrollbar-track,
+.timeline-column::-webkit-scrollbar-track {
+    background: rgba(70, 29, 124, 0.05);
+    border-radius: 2px;
+}
+
+.bio-column::-webkit-scrollbar-thumb,
+.timeline-column::-webkit-scrollbar-thumb {
+    background: rgba(70, 29, 124);
+    border-radius: 2px;
+}
+
+.bio-column::-webkit-scrollbar-thumb:hover,
+.timeline-column::-webkit-scrollbar-thumb:hover {
+    background: rgba(70, 29, 124);
+}
+
+/* Firefox */
+.bio-column,
+.timeline-column {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(70, 29, 124) rgba(70, 29, 124, 0.05);
+}
+
+/* ==================
+   CONTACT and FOOTER
+   ================== */
+
+#contact {
+    min-height: 0;
+    padding: 0vh 0 3vh 0;  /* small top padding, no bottom padding */
+    align-items: flex-start;  /* aligns content to the top */
+}
+
+footer {
+    padding: 2vh 0;
+    text-align: center;
+    background-color: lightgray;
+    color: rgb(70, 29, 124);
+}
+
+/* ============================================================
+   TYPOGRAPHY & UTILITY CLASSES
+   ============================================================ */
+
+h2 {
+    font-size: 24pt;
+    font-family: "Helvetica Neue Thin";
+}
+
+/* Section headings (e.g. "Research", "Meet the team") */
+.headerinfo {
+    font-family: "Ostrich Sans Inline Regular";
+    font-size: 28pt;
+    color: rgb(70, 29, 124);
+}
+
+/* Standard body/info text */
+.info {
+    font-family: "Helvetica Neue Lt";
+    font-size: 12pt;
+}
+
+/* Publications text: slightly smaller than .info */
+.pub {
+    font-family: "Helvetica Neue Lt";
+    font-size: 10pt;
+}
+
+/* Float an element to the right */
+.floatright {
+    float: right;
+}
+
+/* Subtle centered horizontal rule with gradient fade */
+hr.style-two {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+
+
+/* ============================================================
+   LINKS & ICONS
+   ============================================================ */
+
+/* Pink hover effect for inline text links (inherits color by default) */
+a.pinklink {
+    color: inherit;
+}
+a.pinklink:hover {
+    color: rgb(255, 0, 128);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+/* Icon links in team member cards (Scholar, email, etc.) */
+.team-icon {
+    color: #4b154b;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+.team-icon:hover {
+    color: rgb(255, 0, 128);
+    text-decoration: none;
+}
+
+/* Subtle grow animation on hover (used on team member figures) */
+.hover-grow {
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+/* Team figures: lift effect on hover */
+.hover-grow:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(70, 29, 124, 0.2);
+}
+
+
+/* ============================================================
+   IMAGES
+   ============================================================ */
+
+/* Profile photo (Fabio's headshot): centered, max 80% width */
+img.fabio {
+    padding-bottom: 10px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Horizontal image track: flex row of team member photos */
+#image-track {
+    display: flex;
+    gap: 10px;
+    transform: translate(0%, 0%);
+    user-select: none;  /* Prevents accidental text/image selection while dragging */
+    left: 50%;
+    top: 50%;
+}
+
+/* All .image elements inside the track, figures, and linked figures:
+   fixed 7cm width, cover-fit, anchored to right-center of image */
+#image-track > .image,
+figure > .image,
+a > figure > .image {
+    width: 7cm;
+    object-fit: cover;
+    object-position: 100% center;
+}
+
+/* Non-active team photos are dimmed by default */
+figure > .image {
+    opacity: 0.45;
+    transition: opacity 0.3s ease;
+}
+
+/* Active member stays full opacity when not hovering the track */
+#image-track:not(:hover) figure.active-member > .image {
+    opacity: 1;
+}
+
+/* When hovering the track, dim all figures... */
+#image-track:hover figure > .image {
+    opacity: 0.45;
+}
+
+/* ...then restore the one being hovered */
+#image-track:hover figure:hover > .image {
+    opacity: 1;
+}
+
+/* Figure captions: centered below team photos */
+figcaption {
+    text-align: center;
+    font-size: 18pt;
+}
+
+
+/* ============================================================
+   ACCORDION / PANELS (Research section)
+   Bootstrap panel group styled to look borderless and minimal.
+   Glyphicon arrows indicate open/collapsed state.
+   ============================================================ */
+
+/* Glyphicon arrow for open panel */
+.panel-heading .accordion-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey;
+}
+
+/* Glyphicon arrow for collapsed panel */
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\e080";
+}
+
+/* Accordion toggle links: smooth color transition */
+.accordion-toggle {
+    transition: color 0.2s ease-in-out;
+}
+
+/* Remove panel border and heading background */
+.panel {
+    border: none;
+}
+.panel-default > .panel-heading {
+    background-color: transparent;
+}
+
+/* Remove top border between heading and body */
+.panel-group .panel-heading + .panel-collapse .panel-body {
+    border-top: 0;
+}
+
+/* Remove margin between stacked panels */
+.panel-group .panel + .panel {
+    margin-top: 0;
+}
+
+/* Panel title font */
+.panel-title {
+    font-size: 16pt;
+    font-family: "Helvetica Neue";
+}
+
+/* ============================================================
+   MISCELLANEOUS
+   ============================================================ */
+
+/* Profile page padding (used on individual profile pages, if any) */
+.profile {
+    padding: 100px;
+}

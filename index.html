@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script defer src="js/team_profile.js"></script>
+
+<title>Mendes Lab @ LSU</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/academicons.min.css">
+<link rel="stylesheet" href="css/elements.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/smooth.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Space items in body? -->
+<style type="text/css">
+    body {
+    	/* padding-top: 51px; */
+      padding: 0px;
+    }
+
+    section {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 400px;
+    }
+
+    .spacer {
+      aspect-ratio: 960/100;
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .spacer2 {
+      aspect-ratio: 960/50;
+      /* 100vw = full viewport width, bypassing any parent padding/margins
+	 that would otherwise leave white gaps on the sides (visible in Safari) */
+      width: 100vw;
+      /* Together these three properties center the element and pull it
+	 edge-to-edge: position:relative lets us shift it, left:50% moves
+	 the left edge to the center of the page, and translateX(-50%) pulls
+	 it back left by half its own width — net result is full bleed */
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);      
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .purplepattern {
+      /* background-image: url('images/layered-waves-haikei.svg'); */
+      background-image: url('images/stacked-steps-haikei.svg');
+    }
+
+    .graypattern {
+      /* background-image: url('images/layered-waves-haikei.svg'); */
+      background-image: url('images/layered-waves-haikei_bottom.svg');
+    }
+
+    .fade-in {
+	animation: fadeInUp 1s ease forwards;
+    }
+    @keyframes fadeInUp {
+	from { opacity: 0; transform: translateY(20px); }
+	to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Ensure the timeline container works on light backgrounds */
+    .timeline {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	border-left: 2px solid #ddd; /* Darker line for light background */
+	margin-left: 10px;
+    }
+
+    .timeline-item {
+	position: relative;
+	padding-bottom: 40px;
+	padding-left: 25px;
+    }
+
+    .timeline-marker {
+	position: absolute;
+	left: -7px;
+	top: 5px;
+	width: 12px;
+	height: 12px;
+	background: #461d7c;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	box-shadow: 0 0 0 3px rgba(70, 29, 124, 0.15);
+	transition: box-shadow 0.2s ease-in-out;
+    }
+
+    .timeline-marker:hover {
+	box-shadow: 0 0 0 5px rgba(70, 29, 124, 0.25);
+    }
+
+    /* Typography for light backgrounds */
+    .year {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 11px;
+	letter-spacing: 1.5px;
+	color: #461d7c; /* Deep purple for readability */
+	margin: 0;
+    }
+
+    .title {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+	color: #333; /* Dark gray for high-contrast text */
+	margin: 4px 0;
+    }
+
+    .detail {
+	font-size: 14px;
+	color: #666; /* Muted gray for secondary info */
+	margin: 0;
+    }
+</style>
+
+</head>
+
+<body>
+    
+<nav id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" style="padding:0;" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+	<span class="sr-only">Toggle navigation</span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MENDES LAB</a>
+    </div>
+    
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="nav navbar-nav">
+	<li class="nav-item">
+	  <a class="active" href="#"><i class="fa fa-lg fa-home home" aria-hidden="true"></i></a>
+	</li>
+	<li class="nav-item"><a id="forcePurpleBackground" class="nav-link scroll" href="#res">Research</a></li>
+	<li class="nav-item"><a id="forcePurpleBackground" class="nav-link scroll" href="#team">People</a></li>
+	<li class="nav-item"><a id="forcePurpleBackground" class="nav-link scroll" href="#pub">Publications</a></li>
+        <li class="nav-item"><a id="forcePurpleBackground" class="nav-link scroll" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section id="top" class="first purpletop">
+  <div class="container">
+    <div class="jumbotron fade-in" style="margin-bottom: 20px; background: transparent; border: none; padding: 20px 15px 0 15px;">
+      
+      <div class="row" style="display: flex; align-items: stretch; min-height: 400px;">
+
+	<!-- BEGIN: Welcome box -->
+        <div class="col-xs-12 col-sm-7" style="margin-bottom: 20px;">
+          <div style="display: flex; flex-direction: column; align-items: stretch; gap: 20px; height: 100%;">
+            <div style="width: 100%; text-align: left !important;">
+              <h1 class="display-3" style="margin-top: 0;
+					   margin-bottom: 12px; color:
+					   #ffffff; font-weight: bold;
+					   text-align: center;">
+                Welcome
+              </h1>
+              <p style="font-family: 'Helvetica'; font-size: 18px; line-height: 1.4; color: #f5f0fa; margin-bottom: 0;">
+                We are a small group of computational biologists at Louisiana State University (LSU)
+		studying the <b style="font-family: 'Arial'">evolutionary origins of biodiversity</b>.
+                Thanks for visiting our online headquarters.
+              </p>
+            </div>
+	    
+            <div class="welcome-img"></div>
+	    
+          </div>
+        </div> <!-- END: Welcome box -->
+
+	<!-- RIGHT SIDE: NEWS box -->
+	<div class="col-xs-12 col-sm-5" style="margin-bottom: 20px; display: flex; flex-direction: column; height: 100%;">           
+	  <h1 class="display-3" style="margin-top: 0; font-size: 32px; color: #ffffff; font-weight: bold; margin-bottom: 14px; text-align: center;">
+	    Latest News & Updates
+	  </h1>
+
+	  <div class="news-scroll" style="flex: 1; max-height: 280px; overflow-y: auto; padding: 14px; margin-bottom: 20px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); border-radius: 0 4px 4px 0;">
+	    <p style="margin: 0 0 12px 0; font-family: 'Helvetica'; font-size: 15px; line-height: 1.4; color: #ffffff;">
+	      <strong style="color: #FFD700; font-weight: bold;">May 2026:</strong>
+	      Team size++! We are ecstatic to have Clementine Yan, who flew all the way from New Zealand to do a PhD with us, here at LSU.
+	      (And this time there was no misplacement of her passport by the NZ post, woohoo!) Welcome, Clementine!
+	    </p>
+	    
+	    <p style="margin: 0 0 12px 0; font-family: 'Helvetica'; font-size: 15px; line-height: 1.4; color: #ffffff;">
+	      <strong style="color: #FFD700; font-weight: bold;">April
+	      2026:</strong> Our most senior PhD student, Sana Raza, has just successfully (and strongly!) completed her first PhD semester at LSU.
+	      She says her goal for the Summer is to develop her first science project!
+	    </p>	  	   	    
+	  </div> 
+	</div> <!-- End of scrollable NEWS -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Bluesky Column -->
+    <!-- <div class="col-xs-12 col-sm-4"> -->
+    <!--   <div style="background: #ffffff; border-radius: 6px; padding: 20px; border: 1px solid #e1e8ed; margin-bottom: 20px; min-height: 400px;"> -->
+	
+    <!-- 	<div style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;"> -->
+    <!-- 	  <h4 style="margin: 0; font-family: sans-serif; font-weight: bold; color: #333;">Featured Post</h4> -->
+    <!-- 	  <a href="https://bsky.app/profile/fabiology.bsky.social" target="_blank" style="font-size: 12px; color: #0085ff; text-decoration: none; font-weight: 500;"> -->
+    <!--         Follow @fabiology.bsky.social on Bluesky → -->
+    <!-- 	  </a> -->
+    <!-- 	</div> -->
+
+    <!-- 	<blockquote class="bluesky-embed"  -->
+    <!--                 data-bluesky-uri="at://did:plc:ragofbexw3pbnst3bt5szq52/app.bsky.feed.post/3ltrzi4dq7s2s"  -->
+    <!--                 data-bluesky-link="https://bsky.app/profile/fabiology.bsky.social/post/3ltrzi4dq7s2s"> -->
+    <!-- 	  <a href="https://bsky.app/profile/fabiology.bsky.social/post/3ltrzi4dq7s2s" target="_blank">View post on Bluesky</a> -->
+    <!-- 	</blockquote> -->
+	
+    <!-- 	<script async src="https://embed.bsky.app/static/embed.js" charset="utf-8"></script> -->
+
+    <!--   </div> -->
+    <!-- </div> -->
+
+    <!-- <script> -->
+    <!--   $(document).ready(function() { -->
+    <!-- 	  var handle = "fabiology.bsky.social"; -->
+	  
+    <!-- 	  // 1. Fetch Profile Info (Avatar & Display Name) -->
+    <!-- 	  $.getJSON("https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=" + handle, function(profile) { -->
+    <!-- 	      if(profile.avatar) { -->
+    <!-- 		  $("#bsky-avatar").attr("src", profile.avatar).show(); -->
+    <!-- 	      } -->
+    <!-- 	      if(profile.displayName) { -->
+    <!-- 		  $("#bsky-name").text(profile.displayName); -->
+    <!-- 	      } -->
+    <!-- 	  }).fail(function() { -->
+    <!-- 	      console.log("Profile handle lookup failed."); -->
+    <!-- 	  }); -->
+
+    <!-- 	  // 2. Fetch Latest Feed Posts (Increased limit to 15 to ensure clean standalone posts show up) -->
+    <!-- 	  $.getJSON("https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=" + handle + "&limit=15", function(data) { -->
+    <!-- 	      $("#bsky-feed").empty(); -->
+	      
+    <!-- 	      if (!data.feed || data.feed.length === 0) { -->
+    <!-- 		  $("#bsky-feed").html("<p style='padding: 10px;'>No posts found for this user.</p>"); -->
+    <!-- 		  return; -->
+    <!-- 	      } -->
+
+    <!-- 	      var postsRendered = 0; -->
+
+    <!-- 	      data.feed.forEach(function(item) { -->
+    <!-- 		  // Limit output to a clean layout stack of 5 total items max -->
+    <!-- 		  if (postsRendered >= 5) return;  -->
+		  
+    <!-- 		  // Skip conversational thread responses to keep portfolio professional -->
+    <!-- 		  if (item.reply) return;  -->
+
+    <!-- 		  var post = item.post; -->
+    <!-- 		  var postText = post.record.text || ""; -->
+    <!-- 		  var postDate = new Date(post.record.createdAt).toLocaleDateString(undefined, {month: 'short', day: 'numeric'}); -->
+    <!-- 		  var postUrl = "https://bsky.app/profile/" + handle + "/post/" + post.uri.split("/").pop(); -->
+
+    <!-- 		  var postHtml = ` -->
+    <!--       <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f0f3f5; line-height: 1.4;"> -->
+    <!--         <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-bottom: 4px;"> -->
+    <!--           <span>Posted</span> -->
+    <!--           <span>${postDate}</span> -->
+    <!--         </div> -->
+    <!--         <p style="margin: 0; color: #222; white-space: pre-wrap;">${postText}</p> -->
+    <!--         <div style="margin-top: 8px; font-size: 12px;"> -->
+    <!--           <a href="${postUrl}" target="_blank" style="color: #0085ff; text-decoration: none; font-weight: 500;">View on Bluesky →</a> -->
+    <!--         </div> -->
+    <!--       </div> -->
+    <!--     `; -->
+    <!-- 		  $("#bsky-feed").append(postHtml); -->
+    <!-- 		  postsRendered++; -->
+    <!-- 	      }); -->
+
+    <!-- 	      // If after checking 15 items, everything was a reply -->
+    <!-- 	      if (postsRendered === 0) { -->
+    <!-- 		  $("#bsky-feed").html("<p style='color: #666; padding: 10px;'>No standalone posts found recently.</p>"); -->
+    <!-- 	      } -->
+
+    <!-- 	  }).fail(function(jqXHR, textStatus, errorThrown) { -->
+    <!-- 	      $("#bsky-feed").html("<p style='color: #cc0000; padding: 10px;'>Unable to stream feed updates at this time.</p>"); -->
+    <!-- 	      console.log("API Error: " + textStatus + " - " + errorThrown); -->
+    <!-- 	  }); -->
+    <!--   }); -->
+    <!--   </script> -->
+
+    <!-- </div> -->
+    
+
+<div class="spacer purplepattern"></div>
+  
+<section id="res">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="mb-5 display-4 headerinfo">Research</h1>
+	 
+        <p class="info">Research in the lab focuses on the <span style="font-family: 'Arial'">large-scale (phylogenetic) mechanisms and implications of speciation</span>, the process by which entirely new living species are born.
+	  Rather than crossing or genetically manipulating small plants and animals, our team learns from broad evolutionary patterns &mdash; in genes and traits &mdash; across species, in both time and space.</p>
+
+	<p class="info">Our approach is <span style="font-family: 'Arial'">interdisciplinary</span>: We take our questions, hypotheses and data from <u>biology</u>, and drawing from <u>statistics</u> and <u>computer science</u> we then create the necessary software for analytical work.
+	  Although scripting and programming is our bread and butter, we believe useful computational biology must be grounded in deep biological scholarship and built on close partnerships with empiricists.	  
+        </p>
+
+        <hr style="width: 100%;">    
+        
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2 class="panel-title">
+                <a class="accordion-toggle pinklink" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  INTEGRATIVE MODELS IN EVOLUTIONARY INFERENCE
+                </a>
+              </h2>
+            </div>
+            
+            <div id="collapseOne" class="panel-collapse collapse">
+              <div class="panel-body info">
+                <p> With the development of faster computers and statistical tools over the past decades, it is now possible to use <b><u>integrative models</u></b> that draw information from multiple different sources of data simultaneously, through joint parameter estimation. Integrative models make it possible for some kinds of data to contribute signal to the estimation of parameters they would not normally inform (under separate evolutionary models), as well as to add their signal to that of other data partitions.</p>
+                <p> I am one of the developers of <b><u>BEAST2</u></b>, a package where integrative models are implemented in a <b><u>Bayesian</u></b> framework. Bayesian statistics provides us with a convenient set-up for the construction of such models.
+                  My research involves the refinement of some of BEAST's model components in addition to the development of new submodel pieces. The goal is to enable evolutionary inferences that draw information from discrete and continuous morphological characters (including fossils), molecular data, and species geographical distributions. The difficulty lies in having all these parts talking to one another coherently (and fast enough!).</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle pinklink" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                  GENOME EVOLUTION
+                </a>
+              </h4>
+            </div>
+            
+            <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body info">
+                <p>Blabla.</p>
+              </div>
+            </div>
+          </div>
+	  
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+		<a class="accordion-toggle pinklink" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+		  TRAIT EVOLUTION
+		</a>
+	      </h4>
+	    </div>
+	    <div id="collapseThree" class="panel-collapse collapse">
+	      <div class="panel-body info">
+		<p>Evolutionary biologists are not only interested in how new species come to be and how they are related, but also <b><u>why some species they look the way they look</u></b>. Traits can vary immensely among species, and common investigations include determining whether two traits are correlated, if the evolutionary rate of a trait varies across clades or environments, and whether certain traits make speciation more likely.</p>
+		
+	      </div>
+	    </div>
+	  </div>
+          
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+		<a class="accordion-toggle pinklink" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+		  HISTORICAL BIOGEOGRAPHY & SPECIATION
+		</a>
+	      </h4>
+	    </div>
+	    <div id="collapseFour" class="panel-collapse collapse">
+	      <div class="panel-body info">
+		<p> With the development of faster computers and statistical tools over the past decades, it is now possible to use models that can simultaneously draw information from multiple different sources of data. These <b><u>integrative models</u></b> allow for joint, robust estimation of many parameters of interest, which can in turn reveal interesting aspects of the evolutionary process. This is a place where <b><u>Bayesian inference</u></b> provides us with a framework to construct and perform inference under such integrative models.</p>
+                <p> I am one of the developers of <b><u>BEAST2</u></b>, a package where such an integrative model is implemented in a Bayesian framework. My research involves the refinement of some of BEAST's model components (which lack in realism) in addition to the development of new submodel pieces. The goal is to enable evolutionary inferences that draw information from discrete and continuous morphological characters (including fossils), molecular data, and species geographical distributions. The difficulty lies in having all these parts talking to one another coherently (and fast enough!).</p>
+		
+	      </div>
+	    </div>
+	  </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="team">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="mb-5 display-4 headerinfo">Meet the team</h1>
+        
+        <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+          
+         <figure class="team-member hover-grow" data-file="fabio.html">
+           <img class="image" src="./images/fabio.svg" draggable="false"/>
+           <figcaption style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px;">
+             <span>F&aacute;bio K. Mendes</span>
+              <span style="font-size: 14px; display: inline-flex; gap: 6px;">
+                <a href="YOUR_SCHOLAR_LINK" target="_blank" class="team-icon" title="Google Scholar"><i class="fa fa-graduation-cap"></i></a>
+                <a href="mailto:fmendes@lsu.edu" class="team-icon" title="Email"><i class="fa fa-envelope"></i></a>
+              </span>
+           </figcaption>
+         </figure>
+          
+          
+          <figure class="team-member hover-grow" data-file="sana.html">
+            <img class="image" src="./images/sana.svg" draggable="false"/>
+            <figcaption style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px;">
+              <span>Sana Raza</span>
+              <span style="font-size: 14px; display: inline-flex; gap: 6px;">
+                <a href="SANA_SCHOLAR_LINK" target="_blank" class="team-icon" title="Google Scholar"><i class="fa fa-graduation-cap"></i></a>
+                <a href="mailto:sana-email@lsu.edu" class="team-icon" title="Email"><i class="fa fa-envelope"></i></a>
+              </span>
+            </figcaption>
+          </figure>
+
+	  
+          <figure class="team-member hover-grow" data-file="clementine.html">
+            <img class="image" src="./images/clementine.svg" draggable="false"/>
+            <figcaption style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 5px;">
+              <span>Clementine Yan</span>
+              <span style="font-size: 14px; display: inline-flex; gap: 6px;">
+                <a href="CLEMENTINE_SCHOLAR_LINK" target="_blank" class="team-icon" title="Google Scholar"><i class="fa fa-graduation-cap"></i></a>
+                <a href="mailto:clementine-email@lsu.edu" class="team-icon" title="Email"><i class="fa fa-envelope"></i></a>
+              </span>
+            </figcaption>
+          </figure>
+          
+        </div>
+
+        <hr width="100%">  
+
+	<div id="team-bio-box" class="info" style="min-height: 100px; padding: 20px; background: #f9f9f9; border-left: 4px solid rgb(70, 29, 124); margin-top: 20px; overflow-x: hidden; display: none;">
+        </div>
+
+        <div class="moreprofile"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="pub">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="mb-5 display-4 headerinfo">Key Publications<span style="font-size: 11pt; font-weight: normal;
+		       font-family: 'Helvetica Neue Lt';
+		       text-transform: none; margin-left: 1px; color: black;">
+	    *co-first or corresponding author
+	</span>	</h1>
+      </div>
+
+      
+      <div class="col-xs-12 col-sm-6 col-md-4">
+	<p class="pub">1. <span style="text-decoration: underline;">Mendes, F. K.</span>, Bouckaert, R., Carvalho, L. M., Drummond, A. J. How to validate a Bayesian evolutionary model. <i>Systematic Biology 74, 1</i> (2025) <a class="pinklink" style="margin-left: 8px;" href="papers/mendes_etal_25.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i></a><a class="pinklink" style="margin-left: 8px;" href="papers/mendes_etal_25.pdf" download><i class="fa fa-download" style="font-size:14px"></i></a>
+        </p>
+	<p class="pub">2. <span style="text-decoration: underline;">Mendes, F. K.</span>, Landis, M. J.. PhyloJunction: a computational framework for simulating, developing, and teaching evolutionary models. <i>Systematic Biology 74, 1</i> (2025) <a class="pinklink" style="margin-left: 8px;" href="papers/mendes_landis_24.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i></a><a class="pinklink" style="margin-left: 8px;" href="papers/mendes_landis_24.pdf" download><i class="fa fa-download" style="font-size:14px"></i></a>
+        </p>
+        <p class="pub">3. Zhang, R., Drummond, A. J., <span style="text-decoration: underline;">Mendes, F. K.*</span>. Fast Bayesian inference of phylogenies from multiple continuous characters. <i>Systematic Biology 73, 1</i> (2024) &nbsp;<a class="pinklink" href="papers/zhang_etal_24.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i></a> &nbsp;<a class="pinklink" href="papers/zhang_etal_24.pdf" download><i class="fa fa-download" style="font-size:14px"></i></a>
+        </p>
+      </div>
+
+      
+      <div class="col-xs-12 col-sm-6 col-md-4">
+	<p class="pub">4. Ogilvie, H. W., <span style="text-decoration: underline;">Mendes, F. K.*</span>, Vaughan, T. G., Matzke, N. J., Stadler, T., Welch, D., Drummond, A. J. Novel integrative modeling of molecules and morphology across evolutionary timescales. <i>Systematic Biology 71, 1</i> (2018) &nbsp;<a class="pinklink" href="papers/ogilvie_etal_22.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i></a> &nbsp;<a class="pinklink" href="papers/ogilvie_etal_22.pdf" download><i class="fa fa-download" style="font-size:14px"></i></a>
+        </p>
+        <p class="pub">5. <span style="text-decoration: underline;">Mendes, F. K.</span>, Fuentes-Gonz&aacute;lez, J. A., Schraiber, J., Hahn, M. W. A multispecies coalescent model for quantitative traits. <i>eLife 7, e36482</i> (2018) &nbsp;<a class="pinklink" href="papers/mendes_etal_18.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i></a> &nbsp;<a class="pinklink" href="papers/mendes_etal_18.pdf" download><i class="fa fa-download" style="font-size:14px"></i></a>
+        </p>
+	<p class="pub">6. <span style="text-decoration: underline;">Mendes, F. K.</span>, Hahn, M. W.
+          Why concatenation fails near the anomaly zone. <i>Systematic Biology 67, 1</i> (2018) &nbsp;<a class="pinklink" href="papers/mendes_hahn_18.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i></a> &nbsp;<a class="pinklink" href="papers/mendes_hahn_18.pdf" download><i class="fa fa-download" style="font-size:14px"></i></a>
+        </p>
+      </div>
+
+      
+      <div class="col-xs-12 col-sm-6 col-md-4">
+	<p class="pub">7. <span style="text-decoration: underline;">Mendes, F. K.</span>, Hahn, Y., and Hahn, M. W. Gene tree discordance can generate patterns of diminishing convergence over time. <i>Molecular Biology and Evolution 33, 12</i> (2016) &nbsp;<a class="pinklink" href="papers/mendes_etal_16.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i></a> &nbsp;<a class="pinklink" href="papers/mendes_etal_16.pdf" download><i class="fa fa-download" style="font-size:14px"></i></a>
+        </p>
+        <p class="pub">8. <span style="text-decoration: underline;">Mendes, F. K.</span>, and Hahn, M. W. Gene tree discordance causes substitution rate variation. <i>Systematic Biology 65, 4</i> (2016)  &nbsp;<a class="pinklink" href="papers/mendes_hahn_16.pdf" target="_blank"><i class="fa-solid fa-file-pdf"></i></a> &nbsp;<a class="pinklink" href="papers/mendes_hahn_16.pdf" download><i class="fa fa-download" style="font-size:14px"></i></a>
+	</p>
+      </div>
+      
+    </div>
+  </div> 
+</section>
+
+<div class="spacer2 graypattern"></div>
+
+<section id="contact" style="background-color: lightgray;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 info">
+        <h1 class="mb-5 display-4 headerinfo">Contact us</h1>
+        <p>Interested in joining us? Please reach out at fmendes [at] lsu.edu</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="js/hor_scroll.js"></script>
+
+<!-- To show team member's bio -->
+<script>
+  // Function to load the bio
+  function loadBio(fileName) {
+    const bioBox = document.getElementById('team-bio-box');
+    bioBox.innerHTML = "<p>Loading profile...</p>";
+
+    // Ensure the path is correct. 
+    // If your index.html is in the root, this looks for /bios/filename.html
+      console.log("Attempting to fetch: " + window.location.origin + "/bios/" + fileName);
+    fetch(`./bios/${fileName}`)
+      .then(response => {
+        if (!response.ok) throw new Error("File not found");
+        return response.text();
+      })
+      .then(htmlContent => {
+        bioBox.innerHTML = htmlContent;
+      })
+      .catch(error => {
+        console.error(error); // This will show the actual error in your browser console (F12)
+        bioBox.innerHTML = "<p>Could not load biography. Please check the file path.</p>";
+      });
+  }
+
+  // 1. Add click listeners to all members
+  document.querySelectorAll('.team-member').forEach(member => {
+    member.addEventListener('click', function() {
+        // Remove active state from all members
+        document.querySelectorAll('.team-member').forEach(m => {
+            m.classList.remove('active-member');
+        });
+        // Set clicked member as active
+        this.classList.add('active-member');
+
+        // Show the bio box if it was hidden
+        document.getElementById('team-bio-box').style.display = 'block';
+
+        const fileName = this.getAttribute('data-file');
+        loadBio(fileName);
+    });
+});
+
+// Remove the window.addEventListener('load', ...) block entirely
+  // document.querySelectorAll('.team-member').forEach(member => {
+  //     member.addEventListener('click', function() {
+  //         // Remove active state from all members
+  //       document.querySelectorAll('.team-member').forEach(m => {
+  //           m.classList.remove('active-member');
+  //       });
+  //         // Set clicked member as active
+  //         this.classList.add('active-member');
+	  
+  //         const fileName = this.getAttribute('data-file');
+  //         loadBio(fileName);
+  //     });
+  // });
+  
+  // 2. Automatically load the first member's bio on page load
+  // window.addEventListener('load', () => {
+  //   const firstMember = document.querySelector('.team-member');
+  //   if (firstMember) {
+  //     const firstFile = firstMember.getAttribute('data-file');
+  //     loadBio(firstFile);
+  //   }
+  // });
+</script>
+
+
+<!-- Start footer -->
+<footer>
+  <p style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;">
+    <b>Designed &amp; built by F&aacute;bio K. Mendes &nbsp;&bull;&nbsp; &copy; <span id="year"></span></b>
+  </p>
+</footer>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<!-- End footer -->
+
+</body>
+</html> 

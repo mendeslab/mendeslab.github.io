@@ -1,0 +1,37 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs / temp files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Node (only relevant if you ever add build tooling later)
+node_modules/
+npm-debug.log*
+
+# Environment / secrets (in case you ever add a build step or API keys)
+.env
+.env.local
+
+# Local-only working files (e.g. Inkscape source files, drafts) — never pushed
+untracked/
