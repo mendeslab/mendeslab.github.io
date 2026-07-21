@@ -667,10 +667,16 @@ figcaption {
     margin-top: 0;
 }
 
-/* Panel title font */
+/* Panel title font.
+   font-weight is explicitly set to avoid cross-browser inconsistency:
+   Chrome and Safari have different defaults for Helvetica Neue when
+   no weight is specified — Safari renders it bolder than Chrome.
+   Setting 400 (normal) forces both to agree. Adjust to taste:
+   300 = light (Chrome's current look), 500/600 = bolder (Safari's look) */
 .panel-title {
     font-size: 16pt;
     font-family: "Helvetica Neue";
+    font-weight: 400;
 }
 
 /* Remove the gap between the <hr> and the first accordion panel.
