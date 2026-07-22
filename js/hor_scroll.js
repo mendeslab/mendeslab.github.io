@@ -1,57 +1,78 @@
 const track = document.getElementById("image-track");
 
+// ============================================================
+// MOUSE EVENTS (desktop)
+// ============================================================
+
 window.onmousedown = e => {
- track.dataset.mouseDownAt = e.clientX;
+    track.dataset.mouseDownAt = e.clientX;
+    track.dataset.mouseMoved = "false";
 }
 
-window.onmouseup = () => {
+window.onmouseup = e => {
+    // If mouse barely moved, treat as a click — don't interfere
+    const delta = Math.abs(parseFloat(track.dataset.mouseDownAt) - e.clientX);
+    if (delta < 5) {
+        track.dataset.mouseDownAt = "0";
+        track.dataset.prevPercentage = track.dataset.percentage;
+        return;
+    }
     track.dataset.mouseDownAt = "0";
     track.dataset.prevPercentage = track.dataset.percentage;
 }
 
 window.onmousemove = e => {
-
     if (track.dataset.mouseDownAt === "0") return;
-
     const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
         maxDelta = window.innerWidth / 2;
-
     const percentage = (mouseDelta / maxDelta) * -100,
         nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
-        
-        // can only go as far right as images load initially
-        // can only go left as much as the last image to the right
         nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
-
     track.dataset.percentage = nextPercentage;
-
-    // track.style.transform = `translate(${nextPercentage}%, 0%)`;
-
-    // for(const image of track.getElementsByClassName("image")) {
-    //     image.style.objectPosition = `${nextPercentage + 100} 50%;`
-    // }
     track.animate({
         transform: `translate(${nextPercentage}%, 0%)`
-      }, { duration: 1200, fill: "forwards" });
-      
-    for(const image of track.getElementsByClassName("image")) {
+    }, { duration: 1200, fill: "forwards" });
+    for (const image of track.getElementsByClassName("image")) {
         image.animate({
             objectPosition: `${100 + nextPercentage}% center`
         }, { duration: 1200, fill: "forwards" });
     }
-
 }
 
-// /* -- Had to add extra lines for touch events -- */
+// ============================================================
+// TOUCH EVENTS (mobile/tablet)
+// Touch events mirror the mouse logic but use e.touches[0].clientX
+// to get the finger's horizontal position.
+// ============================================================
 
-// window.onmousedown = e => handleOnDown(e);
+window.addEventListener("touchstart", e => {
+    track.dataset.mouseDownAt = e.touches[0].clientX;
+});
 
-// window.ontouchstart = e => handleOnDown(e.touches[0]);
+window.addEventListener("touchend", e => {
+    track.dataset.mouseDownAt = "0";
+    track.dataset.prevPercentage = track.dataset.percentage;
+});
 
-// window.onmouseup = e => handleOnUp(e);
+window.addEventListener("touchmove", e => {
+    if (track.dataset.mouseDownAt === "0") return;
 
-// window.ontouchend = e => handleOnUp(e.touches[0]);
+    const touchDelta = parseFloat(track.dataset.mouseDownAt) - e.touches[0].clientX,
+        maxDelta = window.innerWidth / 2;
 
-// window.onmousemove = e => handleOnMove(e);
+    const percentage = (touchDelta / maxDelta) * -100,
+        nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+        nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
 
-// window.ontouchmove = e => handleOnMove(e.touches[0]);
+    track.dataset.percentage = nextPercentage;
+
+    track.animate({
+        transform: `translate(${nextPercentage}%, 0%)`
+    }, { duration: 1200, fill: "forwards" });
+
+    for (const image of track.getElementsByClassName("image")) {
+        image.animate({
+            objectPosition: `${100 + nextPercentage}% center`
+        }, { duration: 1200, fill: "forwards" });
+    }
+});
