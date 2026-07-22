@@ -1,12 +1,21 @@
 const track = document.getElementById("image-track");
 
+// Calculates the maximum scroll percentage dynamically based on actual
+// element dimensions. Uses offsetWidth (visible width) as the divisor
+// because translate() percentages are relative to the element's own
+// rendered width, not its scroll width.
+function getMaxScroll() {
+    const totalWidth = track.scrollWidth;
+    const visibleWidth = track.offsetWidth;
+    return -((totalWidth - visibleWidth) / visibleWidth * 100);
+}
+
 // ============================================================
 // MOUSE EVENTS (desktop)
 // ============================================================
 
 window.onmousedown = e => {
     track.dataset.mouseDownAt = e.clientX;
-    track.dataset.mouseMoved = "false";
 }
 
 window.onmouseup = e => {
@@ -27,7 +36,7 @@ window.onmousemove = e => {
         maxDelta = window.innerWidth / 2;
     const percentage = (mouseDelta / maxDelta) * -100,
         nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
-        nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+        nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), getMaxScroll());
     track.dataset.percentage = nextPercentage;
     track.animate({
         transform: `translate(${nextPercentage}%, 0%)`
@@ -41,8 +50,7 @@ window.onmousemove = e => {
 
 // ============================================================
 // TOUCH EVENTS (mobile/tablet)
-// Touch events mirror the mouse logic but use e.touches[0].clientX
-// to get the finger's horizontal position.
+// Mirror the mouse logic using e.touches[0].clientX for finger position.
 // ============================================================
 
 window.addEventListener("touchstart", e => {
@@ -56,23 +64,39 @@ window.addEventListener("touchend", e => {
 
 window.addEventListener("touchmove", e => {
     if (track.dataset.mouseDownAt === "0") return;
-
     const touchDelta = parseFloat(track.dataset.mouseDownAt) - e.touches[0].clientX,
         maxDelta = window.innerWidth / 2;
-
     const percentage = (touchDelta / maxDelta) * -100,
         nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
-        nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
-
+        nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), getMaxScroll());
     track.dataset.percentage = nextPercentage;
-
     track.animate({
         transform: `translate(${nextPercentage}%, 0%)`
     }, { duration: 1200, fill: "forwards" });
-
     for (const image of track.getElementsByClassName("image")) {
         image.animate({
             objectPosition: `${100 + nextPercentage}% center`
         }, { duration: 1200, fill: "forwards" });
+    }
+});
+
+// ============================================================
+// RESIZE HANDLER
+// Resets scroll position when the window is resized, since
+// percentages are relative to element width which changes
+// with the viewport.
+// ============================================================
+
+window.addEventListener("resize", () => {
+    track.dataset.percentage = "0";
+    track.dataset.prevPercentage = "0";
+    track.dataset.mouseDownAt = "0";
+    track.animate({
+        transform: `translate(0%, 0%)`
+    }, { duration: 300, fill: "forwards" });
+    for (const image of track.getElementsByClassName("image")) {
+        image.animate({
+            objectPosition: `100% center`
+        }, { duration: 300, fill: "forwards" });
     }
 });
